@@ -4,11 +4,13 @@
 
 ## Installation
 Runing following containers :
-<li>Golang Container (Server) </li>
+<li>Golang Container (Server) (running `./Dockerfile`)</li>
 <li>Redis Container (Caching) </li>
 <li>K6 Container (Load Testing) </li>
 <li>Influxdb Container (Storing load testing result) </li>
 <li>Grafana Container (Dashboard for load testing result (include data from influxdb)) </li>
+
+Docker compose file located at `./docker-compose.yml`
 
 ```sh
 docker-compose up
