@@ -1,7 +1,10 @@
 package main
 
 import (
+	"books-data-scrapping/handler"
+	"books-data-scrapping/repository"
 	"books-data-scrapping/router"
+	"books-data-scrapping/service"
 	"os"
 	"time"
 
@@ -31,7 +34,13 @@ func fiberConfig() fiber.Config {
 func setupFiber() error {
 	app := fiber.New(fiberConfig())
 
-	router.New(app)
+	bookRepository := repository.NewBookRepository()
+
+	bookService := service.NewBookController(bookRepository)
+
+	bookHandler := handler.NewBookHandler(bookService)
+
+	router.New(app, bookHandler)
 	err := app.Listen(":" + os.Getenv("PORT"))
 
 	return err

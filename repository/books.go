@@ -1,16 +1,27 @@
-package data
+package repository
 
 import (
-	"books-data-scrapping/model"
 	"fmt"
 	"os"
 	"strings"
 
 	"github.com/gocolly/colly"
+
+	"books-data-scrapping/model"
 )
 
+type bookRepository struct{}
+
+type IBookRepository interface {
+	GetBooksData(string, *[]model.Book) error
+}
+
+func NewBookRepository() bookRepository {
+	return bookRepository{}
+}
+
 // Get books data from web scarpping
-func GetBooksData(name string, books *[]model.Book) error {
+func (b bookRepository) GetBooksData(name string, books *[]model.Book) error {
 	c := colly.NewCollector()
 	bookCount := 0
 	c.OnHTML("div.productitem", func(e *colly.HTMLElement) {
