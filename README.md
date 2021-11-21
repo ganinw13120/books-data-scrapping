@@ -1,6 +1,7 @@
 # Books Data API (Scrapping)
 > Scrapping from <a href='https://naiin.com'>Naiin</a>
 
+> Practice projects for implementing redis, with golang. Applying with hexagonal architecture.
 
 ## Installation
 Runing following containers :
