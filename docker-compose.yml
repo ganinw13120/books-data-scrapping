@@ -39,3 +39,12 @@ services:
       - 3000:3000
     volumes:
       - ./infrastructure/data/grafana:/var/lib/grafana
+
+  golang:
+    container_name: golang
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8008:8008
+    
