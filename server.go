@@ -8,6 +8,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/go-redis/redis/v8"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 )
@@ -33,17 +34,24 @@ func fiberConfig() fiber.Config {
 
 func setupFiber() error {
 	app := fiber.New(fiberConfig())
+	redis := setupRedis()
 
 	bookRepository := repository.NewBookRepository()
 
 	bookService := service.NewBookController(bookRepository)
 
-	bookHandler := handler.NewBookHandler(bookService)
+	bookHandler := handler.NewBookHandler(bookService, redis)
 
 	router.New(app, bookHandler)
 	err := app.Listen(":" + os.Getenv("PORT"))
 
 	return err
+}
+
+func setupRedis() *redis.Client {
+	return redis.NewClient(&redis.Options{
+		Addr: "localhost:6379",
+	})
 }
 
 func main() {

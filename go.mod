@@ -7,6 +7,7 @@ require (
 	github.com/andybalholm/brotli v1.0.3 // indirect
 	github.com/antchfx/htmlquery v1.2.4 // indirect
 	github.com/antchfx/xmlquery v1.3.8 // indirect
+	github.com/go-redis/redis/v8 v8.11.4
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gocolly/colly v1.2.0
 	github.com/gofiber/fiber/v2 v2.21.0
