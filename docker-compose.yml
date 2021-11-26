@@ -41,10 +41,11 @@ services:
       - ./infrastructure/data/grafana:/var/lib/grafana
 
   golang:
+    image: gcr.io/bitrun-a14e3/books-api
     container_name: golang
-    build: 
-      context: ./
-      dockerfile: Dockerfile
+    # build: 
+    #   context: ./
+    #   dockerfile: Dockerfile
     ports:
       - 8008:8008
     
