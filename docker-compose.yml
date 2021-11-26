@@ -37,8 +37,8 @@ services:
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
     ports:
       - 3000:3000
-    volumes:
-      - ./infrastructure/data/grafana:/var/lib/grafana
+    # volumes:
+    #   - ./infrastructure/data/grafana:/var/lib/grafana
 
   golang:
     image: gcr.io/bitrun-a14e3/books-api
