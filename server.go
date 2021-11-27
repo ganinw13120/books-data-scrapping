@@ -34,9 +34,17 @@ func fiberConfig() fiber.Config {
 	}
 }
 
+func corsConfig() cors.Config {
+	return cors.Config{
+		AllowOrigins: "*",
+		AllowHeaders: "",
+		AllowMethods: "GET,POST,HEAD,PUT,DELETE,PATCH",
+	}
+}
+
 func setupFiber() error {
 	app := fiber.New(fiberConfig())
-	app.Use(cors.New())
+	app.Use(cors.New(corsConfig()))
 	app.Use(recover.New())
 	redis := setupRedis()
 
