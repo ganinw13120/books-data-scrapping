@@ -2,6 +2,7 @@ package repository
 
 import (
 	"fmt"
+	"net/url"
 	"os"
 	"strings"
 
@@ -51,6 +52,6 @@ func (b bookRepository) GetBooksData(name string, books *[]model.Book) error {
 		}
 	})
 
-	c.Visit(fmt.Sprintf("%s%s", os.Getenv("WEB_PATH"), name))
+	c.Visit(fmt.Sprintf("%s%s", os.Getenv("WEB_PATH"), url.QueryEscape(name)))
 	return nil
 }
