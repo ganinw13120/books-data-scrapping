@@ -41,6 +41,7 @@ func (handler bookHandler) GetBooks(c *fiber.Ctx) error {
 	}
 
 	redisKey := request.Name
+
 	if responseRedis, err := handler.redis.Get(context.Background(), redisKey).Result(); err == nil {
 		var result *model.GetBooksResponse
 		json.Unmarshal([]byte(responseRedis), &result)
