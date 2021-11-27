@@ -10,6 +10,8 @@ import (
 
 	"github.com/go-redis/redis/v8"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/joho/godotenv"
 )
 
@@ -32,8 +34,18 @@ func fiberConfig() fiber.Config {
 	}
 }
 
+func corsConfig() cors.Config {
+	return cors.Config{
+		AllowOrigins: "*",
+		AllowHeaders: "",
+		AllowMethods: "GET,POST,HEAD,PUT,DELETE,PATCH",
+	}
+}
+
 func setupFiber() error {
 	app := fiber.New(fiberConfig())
+	app.Use(cors.New(corsConfig()))
+	app.Use(recover.New())
 	redis := setupRedis()
 
 	bookRepository := repository.NewBookRepository()
