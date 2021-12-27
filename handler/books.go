@@ -42,19 +42,21 @@ func (handler bookHandler) GetBooks(c *fiber.Ctx) error {
 
 	redisKey := request.Name
 
-	if responseRedis, err := handler.redis.Get(context.Background(), redisKey).Result(); err == nil {
-		var result *model.GetBooksResponse
-		json.Unmarshal([]byte(responseRedis), &result)
-		c.Set("Content-Type", "application/json")
-		return c.Status(http.StatusOK).JSON(result)
+	if handler.redis != nil {
+		if responseRedis, err := handler.redis.Get(context.Background(), redisKey).Result(); err == nil {
+			var result *model.GetBooksResponse
+			json.Unmarshal([]byte(responseRedis), &result)
+			c.Set("Content-Type", "application/json")
+			return c.Status(http.StatusOK).JSON(result)
+		}
 	}
 
-	response, err := handler.bookService.GetBooks(request)
+	response, err := handler.bookService.GetBooks(request.Name)
 	if err != nil {
 		return c.Status(http.StatusBadRequest).SendString("Internal server error")
 	}
 
-	if data, err := json.Marshal(response); err == nil {
+	if data, err := json.Marshal(response); err == nil && handler.redis != nil {
 		handler.redis.Set(context.Background(), redisKey, string(data), 0)
 	}
 

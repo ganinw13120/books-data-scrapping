@@ -14,7 +14,7 @@ import (
 type bookRepository struct{}
 
 type IBookRepository interface {
-	GetBooksData(string, *[]model.Book) error
+	GetBooksData(name string, books *[]model.Book) error
 }
 
 func NewBookRepository() bookRepository {

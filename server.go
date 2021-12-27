@@ -50,7 +50,7 @@ func setupFiber() error {
 
 	bookRepository := repository.NewBookRepository()
 
-	bookService := service.NewBookController(bookRepository)
+	bookService := service.NewBookService(bookRepository)
 
 	bookHandler := handler.NewBookHandler(bookService, redis)
 

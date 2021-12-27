@@ -11,18 +11,19 @@ type bookService struct {
 }
 
 type IBookService interface {
-	GetBooks(request model.GetBooksRequest) (*model.GetBooksResponse, error)
+	GetBooks(name string) (*model.GetBooksResponse, error)
 }
 
-func NewBookController(bookRepository repository.IBookRepository) bookService {
+func NewBookService(bookRepository repository.IBookRepository) bookService {
 	return bookService{bookRepository: bookRepository}
 }
 
 // Get Books data
-func (service bookService) GetBooks(request model.GetBooksRequest) (*model.GetBooksResponse, error) {
+func (service bookService) GetBooks(name string) (*model.GetBooksResponse, error) {
 	books := make([]model.Book, 0)
 
-	err := service.bookRepository.GetBooksData(request.Name, &books)
+	err := service.bookRepository.GetBooksData(name, &books)
+
 	if err != nil {
 		fmt.Println(err)
 		return nil, err
