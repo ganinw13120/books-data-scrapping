@@ -52,10 +52,7 @@ func TestGetBooks(t *testing.T) {
 				err := json.Unmarshal(body, &result)
 
 				assert.ErrorIs(t, nil, err)
-
 				assert.Equal(t, result, v.expected)
-
-				// assert.Equal(t, strconv.Itoa(expected), string(body))
 			}
 
 		})
